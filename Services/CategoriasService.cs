@@ -1,0 +1,23 @@
+﻿using Actividad1_FruitStore.Models;
+using Actividad1_FruitStore.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Actividad1_FruitStore.Services
+{
+    public class CategoriasService
+    {
+        public List<Categorias> Categorias { get; set; }
+
+        public CategoriasService()
+        {
+            using (fruteriashopContext context = new fruteriashopContext())
+            {
+                Repository<Categorias> repos = new Repository<Categorias>(context);
+                Categorias = repos.GetAll().Where(x=>x.Eliminado==0).OrderBy(x=>x.Nombre).ToList();
+            }
+        }
+    }
+}
